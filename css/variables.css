@@ -1,0 +1,39 @@
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — 5Ws of Fashion
+   All custom properties (colors, fonts, easing, spacing)
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Brand Palette ──────────────────────────────────── */
+  --navy:     #210747;
+  --pink:     #811654;
+  --blush:    #f0d9e6;
+  --cream:    #f5f1e7;
+  --ivory:    #fdf9f5;
+  --charcoal: #1d1d1b;
+  --mid:      #7a7a7a;
+  --white:    #ffffff;
+
+  /* ── Typography ─────────────────────────────────────── */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Jost', sans-serif;
+
+  /* ── Motion ─────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Spacing Scale ──────────────────────────────────── */
+  --space-xs:   0.5rem;
+  --space-sm:   1rem;
+  --space-md:   1.5rem;
+  --space-lg:   3rem;
+  --space-xl:   5rem;
+  --space-2xl:  7rem;
+  --space-3xl:  8rem;
+
+  /* ── Section Padding ────────────────────────────────── */
+  --section-pad-y:  7rem;
+  --section-pad-x:  3rem;
+
+  /* ── Containers ─────────────────────────────────────── */
+  --max-width: 1200px;
+}

@@ -3,665 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="5Ws of Fashion is a research and events management consultancy rooted in the business of fashion, bridging academic insight and real-world practice. Founded by DMU alumni.">
+<meta name="keywords" content="fashion consultancy, fashion research, events management, sustainable fashion, conscious consumption, DMU alumni, Leicester fashion, fashion events">
+<meta name="author" content="14fashion Group Ltd">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="5Ws of Fashion — The Fashionable Win-Win">
+<meta property="og:description" content="Research-led, event-activated fashion consultancy bridging academic insight and real-world practice. Partner with us for conscious, commercially purposeful fashion experiences.">
+<meta property="og:image" content="images/DSC_0014.JPG">
+<meta property="og:url" content="https://5wsoffashion.com">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="images/favicon_io/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
+<link rel="manifest" href="images/favicon_io/site.webmanifest">
+<meta name="theme-color" content="#210747">
+
 <title>5Ws of Fashion — The Fashionable Win-Win</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-
-<style>
-  /* ─── TOKENS ─────────────────────────────────────────── */
-  :root {
-    --navy:   #210747;
-    --pink:   #811654;
-    --blush:  #f0d9e6;
-    --cream:  #f5f1e7;
-    --ivory:  #fdf9f5;
-    --charcoal: #1d1d1b;
-    --mid:    #7a7a7a;
-    --white:  #ffffff;
-
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body:    'Jost', sans-serif;
-
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  /* ─── RESET & BASE ───────────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--ivory);
-    color: var(--charcoal);
-    font-family: var(--font-body);
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* ─── CURSOR ─────────────────────────────────────────── */
-  body { cursor: none; }
-  .cursor {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--navy);
-    transform: translate(-50%,-50%);
-    transition: transform 0.08s var(--ease-out), width 0.3s, height 0.3s, background 0.3s;
-  }
-  .cursor-ring {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1px solid var(--navy);
-    transform: translate(-50%,-50%);
-    transition: transform 0.22s var(--ease-out), width 0.3s, height 0.3s, opacity 0.3s;
-    opacity: 0.6;
-  }
-  a:hover ~ .cursor, button:hover ~ .cursor { width: 20px; height: 20px; }
-
-  /* ─── NAV ────────────────────────────────────────────── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.4rem 3rem;
-    background: transparent;
-    transition: background 0.5s, padding 0.4s;
-  }
-  nav.scrolled {
-    background: rgba(247,243,238,0.92);
-    backdrop-filter: blur(12px);
-    padding: 1rem 3rem;
-    border-bottom: 1px solid rgba(184,94,142,0.12);
-  }
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--navy);
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    cursor: none;
-    width: 100px;
-    margin-bottom: -22.4px;
-  }
-  .nav-logo span { color: var(--pink); }
-  .nav-links {
-    display: flex;
-    gap: 3rem;
-    list-style: none;
-    transform: translateX(20px);
-  }
-  .nav-links a {
-    font-size: 0.75rem;
-    font-weight: 400;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--navy);
-    text-decoration: none;
-    cursor: none;
-    position: relative;
-    padding-bottom: 2px;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0;
-    width: 0; height: 1px;
-    background: var(--pink);
-    transition: width 0.35s var(--ease-out);
-  }
-  .nav-links a:hover::after { width: 100%; }
-  .nav-cta {
-    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--white); background: var(--navy);
-    padding: 0.65rem 1.5rem;
-    border: none; cursor: none;
-    transition: background 0.3s;
-    text-decoration: none;
-  }
-  .nav-cta:hover { background: var(--pink); }
-
-  /* ─── HERO ───────────────────────────────────────────── */
-  .hero {
-    min-height: 100svh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-left {
-    background: var(--cream);
-    display: flex; flex-direction: column;
-    justify-content: flex-end;
-    padding: 6rem 4rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  /*.hero-left::before {
-    content: '';
-    position: absolute; top: -60px; right: -60px;
-    width: 340px; height: 340px; border-radius: 50%;
-    background: rgba(184,94,142,0.22);
-    pointer-events: none;
-  }
-  .hero-left::after {
-    content: '';
-    position: absolute; bottom: 120px; left: -40px;
-    width: 200px; height: 200px; border-radius: 50%;
-    background: var(--cream);
-    pointer-events: none;
-  }*/
-
-  .hero-tag {
-    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--pink); margin-bottom: 1.8rem;
-    opacity: 0; animation: fadeUp 0.9s 0.3s var(--ease-out) forwards;
-  }
-
-  .hero-headline {
-    font-family: var(--font-display);
-    font-size: clamp(3.2rem, 6vw, 5.5rem);
-    font-weight: 300;
-    line-height: 1.05;
-    color: var(--charcoal);
-    margin-bottom: 2rem;
-    opacity: 0; animation: fadeUp 0.9s 0.5s var(--ease-out) forwards;
-  }
-  .hero-headline em {
-    font-style: italic; color: var(--pink);
-    display: block;
-  }
-
-  .hero-desc {
-    font-size: 0.88rem; color: var(--charcoal);
-    max-width: 360px; line-height: 1.8;
-    margin-bottom: 3rem;
-    animation: fadeUp 0.9s 0.7s var(--ease-out) forwards;
-  }
-
-  .hero-btns {
-    display: flex; gap: 1rem;
-    opacity: 0; animation: fadeUp 0.9s 0.9s var(--ease-out) forwards;
-  }
-  .btn-primary {
-    background: var(--pink); color: var(--white);
-    padding: 0.85rem 2.2rem;
-    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-    border: none; cursor: none;
-    transition: background 0.3s, transform 0.2s;
-    text-decoration: none; display: inline-block;
-  }
-  .btn-primary:hover { background: var(--pink); transform: translateY(-2px); }
-  .btn-ghost {
-    background: transparent; color: var(--pink);
-    padding: 0.85rem 2.2rem;
-    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-    border: 1px solid var(--pink); cursor: none;
-    transition: border-color 0.3s, color 0.3s;
-    text-decoration: none; display: inline-block;
-  }
-  .btn-ghost:hover { border-color: var(--pink); color: var(--pink); transform: translateY(-2px); }
-
-  .hero-scroll-hint {
-    position: absolute; bottom: 2.5rem; left: 4rem;
-    display: flex; align-items: center; gap: 0.8rem;
-    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    opacity: 0; animation: fadeUp 0.8s 1.3s var(--ease-out) forwards;
-  }
-  .scroll-line {
-    width: 36px; height: 1px; background: rgba(255,255,255,0.3);
-    position: relative; overflow: hidden;
-  }
-  .scroll-line::after {
-    content: '';
-    position: absolute; top: 0; left: -100%;
-    width: 100%; height: 100%; background: var(--pink);
-    animation: scrollLine 1.8s 1.5s ease-in-out infinite;
-  }
-  @keyframes scrollLine {
-    0% { left: -100%; } 50% { left: 0; } 100% { left: 100%; }
-  }
-
-  /* Hero right — editorial photo collage */
-  .hero-right {
-    background: var(--pink);
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    gap: 3px;
-  }
-  .hero-photo {
-    overflow: hidden; position: relative;
-  }
-  .hero-photo img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.8s var(--ease-out);
-  }
-  .hero-photo:hover img { transform: scale(1.04); }
-
-  /* Overlay tag on one of the hero photos */
-  .hero-photo-tag {
-    position: absolute; bottom: 1.2rem; left: 1.2rem;
-    background: var(--navy);
-    color: var(--white);
-    font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
-    padding: 0.35rem 0.8rem;
-    pointer-events: none;
-  }
-
-  /* Stat strip across hero-right */
-  .hero-stats-strip {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: var(--pink);
-    display: flex; justify-content: space-around;
-    padding: 1rem 2rem;
-    z-index: 10;
-    opacity: 0; animation: fadeUp 0.8s 1.1s var(--ease-out) forwards;
-  }
-  .stat-item { text-align: center; }
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 1.6rem; font-weight: 600; color: var(--white);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
-    color: rgba(255,255,255,0.8); margin-top: 0.2rem;
-  }
-
-  /* ─── TICKER ─────────────────────────────────────────── */
-  .ticker-wrap {
-    background: var(--navy); padding: 0.85rem 0;
-    overflow: hidden; border-top: 1px solid rgba(184,94,142,0.3);
-  }
-  .ticker {
-    display: flex; gap: 0;
-    animation: ticker 28s linear infinite;
-    width: max-content;
-  }
-  .ticker-item {
-    white-space: nowrap;
-    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(255,255,255,0.75);
-    padding: 0 3rem;
-  }
-  .ticker-item span { color: var(--pink); margin-right: 3rem; }
-  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-  /* ─── ABOUT / CRAFT VALUES ───────────────────────────── */
-  .section { padding: 7rem 3rem; }
-  .section-inner { max-width: 1200px; margin: 0 auto; }
-
-  .section-label {
-    font-size: 0.9rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--charcoal); margin-bottom: 1rem;
-  }
-
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 6rem; align-items: center;
-  }
-  .about-text h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.4rem, 4vw, 3.6rem);
-    font-weight: 300; line-height: 1.15;
-    color: var(--navy); margin-bottom: 1.8rem;
-  }
-  .about-text h2 em { font-style: italic; color: var(--pink); }
-  .about-text p {
-    font-size: 0.9rem; color: #555; line-height: 1.9;
-    margin-bottom: 1.2rem;
-  }
-  .about-link {
-    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--navy); text-decoration: none; cursor: none;
-    border-bottom: 1px solid var(--navy); padding-bottom: 1px;
-    transition: color 0.3s, border-color 0.3s;
-  }
-  .about-link:hover { color: var(--pink); border-color: var(--pink); }
-
-  /* CRAFT pillars */
-  .craft-pillars {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-  }
-  .craft-pill {
-    padding: 1.8rem;
-    border: 1px solid rgba(33,7,71,0.1);
-    position: relative; overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-    background: var(--white);
-  }
-  .craft-pill::before {
-    content: '';
-    position: absolute; top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--pink);
-    transform: scaleY(0); transform-origin: top;
-    transition: transform 0.4s var(--ease-out);
-  }
-  .craft-pill:hover { border-color: var(--pink); transform: translateY(-4px); }
-  .craft-pill:hover::before { transform: scaleY(1); }
-  .craft-letter {
-    font-family: var(--font-display);
-    font-size: 2.4rem; font-weight: 600;
-    color: var(--navy); opacity: 0.12;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-  .craft-pill-header {
-    display: flex; justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-  .craft-title {
-    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--navy); margin-bottom: 0.4rem; font-weight: 500;
-  }
-  .craft-image-container {
-    width: 125px; height: 125px; border-radius: 50%;
-    overflow: hidden; flex-shrink: 0;
-  }
-  .craft-image-container  img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.8s var(--ease-out);
-  }
-  .craft-desc {
-    font-size: 0.8rem; color: #777; line-height: 1.6;
-  }
-
-  /* ─── WHAT WE DO (dark section) ──────────────────────── */
-  .dark-section {
-    background: var(--pink);
-    padding: 7rem 3rem;
-    position: relative; overflow: hidden;
-  }
-  .dark-section::before {
-    content: '';
-    position: absolute; top: -100px; right: -100px;
-    width: 500px; height: 500px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(184,94,142,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .dark-inner { max-width: 1200px; margin: 0 auto; }
-  .dark-section .section-label { color: var(--white); }
-
-  .dark-section h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 4vw, 3.5rem);
-    font-weight: 300; color: var(--white);
-    margin-bottom: 4rem; max-width: 600px; line-height: 1.2;
-  }
-  .dark-section h2 em { font-style: italic; color: var(--navy); }
-
-  .services-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-  }
-  .service-card {
-    background: rgba(255,255,255,0.04);
-    padding: 2.5rem 2rem;
-    border: 1px solid rgba(255,255,255,0.07);
-    transition: background 0.3s;
-    position: relative; overflow: hidden;
-    cursor: none;
-  }
-  .service-card:hover { background: rgba(184,94,142,0.12); }
-  .service-num {
-    font-family: var(--font-display);
-    font-size: 3.5rem; font-weight: 300;
-    color: rgba(255,255,255,0.25); line-height: 1;
-    margin-bottom: 1.2rem;
-  }
-  .service-title {
-    font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--blush); margin-bottom: 0.8rem; font-weight: 400;
-  }
-  .service-desc {
-    font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.7;
-  }
-
-  /* ─── EVENTS SECTION ─────────────────────────────────── */
-  .events-section { padding: 7rem 3rem; background: var(--cream); }
-  .events-inner { max-width: 1200px; margin: 0 auto; }
-
-  .events-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 3.5rem;
-  }
-  .events-header h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 3.5vw, 3rem);
-    font-weight: 300; color: var(--navy); line-height: 1.2;
-  }
-  .events-header h2 em { font-style: italic; color: var(--pink); }
-
-  .events-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1.5rem; overflow-y: hidden;
-    overflow-x: auto;
-    white-space: nowrap;
-    width: 100%;
-    scrollbar-width: none; }
-
-  .event-card {
-    background: var(--white);
-    display: inline-block; /* Aligns children horizontally */
-    width: max-content;
-    overflow: hidden;
-    transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
-    cursor: none;
-    position: relative;
-  }
-  .event-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(33,7,71,0.12); }
-  .event-card-img {
-    height: 220px; overflow: hidden;
-    background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 100%);
-    position: relative;
-  }
-  .event-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  /* Placeholder gradient images for cards without real photos */
-  .event-img-placeholder {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .event-img-placeholder svg { opacity: 0.2; }
-
-  .event-card:first-child .event-card-img { height: 340px; }
-
-  .event-badge {
-    position: absolute; top: 1rem; left: 1rem;
-    background: var(--pink); color: var(--white);
-    font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
-    padding: 0.3rem 0.7rem;
-  }
-  .event-card-body { padding: 1.5rem; }
-  .event-date {
-    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--mid); margin-bottom: 0.5rem;
-  }
-  .event-title {
-    font-family: var(--font-display);
-    font-size: 1.3rem; font-weight: 400;
-    color: var(--navy); margin-bottom: 0.6rem; line-height: 1.25;
-  }
-  .event-card:first-child .event-title { font-size: 1.7rem; }
-  .event-desc {
-    font-size: 0.78rem; color: #777; line-height: 1.65;
-    margin-bottom: 1rem;
-  }
-  .event-link {
-    font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--navy); text-decoration: none; cursor: none;
-    display: flex; align-items: center; gap: 0.5rem;
-    transition: color 0.3s;
-  }
-  .event-link::after { content: '→'; transition: transform 0.3s; }
-  .event-link:hover { color: var(--pink); }
-  .event-link:hover::after { transform: translateX(4px); }
-
-  /* ─── AUDIENCE / QUOTE STRIP ─────────────────────────── */
-  .quote-section {
-    padding: 6rem 3rem;
-    background: var(--pink);
-    text-align: center;
-    position: relative; overflow: hidden;
-  }
-  .quote-section::before {
-    content: '\201C';
-    font-family: var(--font-display);
-    font-size: 20rem; font-weight: 600;
-    color: rgba(255,255,255,0.08);
-    position: absolute; top: -4rem; left: 2rem;
-    line-height: 1; pointer-events: none;
-  }
-  .quote-text {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    font-weight: 300; font-style: italic;
-    color: var(--white); max-width: 860px;
-    margin: 0 auto 1.5rem; line-height: 1.3;
-  }
-  .quote-attr {
-    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-  }
-
-  /* ─── AUDIENCE PERSONAS MARQUEE ──────────────────────── */
-  .personas-section { padding: 5rem 0; overflow: hidden; background: var(--ivory); }
-  .personas-label {
-    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--pink); text-align: center; margin-bottom: 2.5rem; padding: 0 3rem;
-  }
-  .personas-track {
-    display: flex; gap: 1.5rem;
-    animation: personaScroll 22s linear infinite;
-    width: max-content;
-  }
-  .personas-track:hover { animation-play-state: paused; }
-  @keyframes personaScroll {
-    0% { transform: translateX(0); } 100% { transform: translateX(-50%); }
-  }
-  .persona-card {
-    width: 240px; flex-shrink: 0;
-    background: var(--white);
-    border: 1px solid rgba(33,7,71,0.08);
-    padding: 1.8rem 1.5rem;
-    transition: transform 0.3s, border-color 0.3s;
-    cursor: none;
-  }
-  .persona-card:hover { transform: translateY(-4px); border-color: var(--pink); }
-  .persona-icon {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--blush);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-size: 1.2rem; font-weight: 600;
-    color: var(--navy); margin-bottom: 1rem;
-  }
-  .persona-name {
-    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--navy); margin-bottom: 0.4rem; font-weight: 500;
-  }
-  .persona-desc { font-size: 0.78rem; color: #777; line-height: 1.6; }
-  .persona-archetype {
-    margin-top: 1rem; font-size: 0.6rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--pink); font-weight: 400;
-  }
-
-  /* ─── PARTNER CTA ────────────────────────────────────── */
-  .cta-section {
-    padding: 8rem 3rem;
-    background: var(--navy);
-    text-align: center; position: relative; overflow: hidden;
-  }
-  .cta-section::after {
-    content: '5Ws';
-    font-family: var(--font-display);
-    font-size: 22rem; font-weight: 600;
-    color: rgba(255,255,255,0.03);
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    pointer-events: none; white-space: nowrap;
-    letter-spacing: -0.05em;
-  }
-  .cta-label {
-    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--blush); margin-bottom: 1.5rem;
-  }
-  .cta-h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 300; color: var(--white);
-    line-height: 1.1; margin-bottom: 1.5rem;
-  }
-  .cta-h2 em { font-style: italic; color: var(--blush); }
-  .cta-desc {
-    font-size: 0.9rem; color: rgba(255,255,255,0.55);
-    max-width: 520px; margin: 0 auto 3rem; line-height: 1.8;
-  }
-  .cta-btns { display: flex; justify-content: center; gap: 1rem; }
-
-  /* ─── FOOTER ─────────────────────────────────────────── */
-  footer {
-    background: #110328;
-    padding: 4rem 3rem 2rem;
-    color: rgba(255,255,255,0.45);
-  }
-  .footer-inner { max-width: 1200px; margin: 0 auto; }
-  .footer-grid {
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem; margin-bottom: 3rem;
-  }
-  .footer-brand-name {
-    font-family: var(--font-display);
-    font-size: 1.6rem; font-weight: 600;
-    color: var(--white); margin-bottom: 0.8rem;
-  }
-  .footer-brand-name span { color: var(--pink); }
-  .footer-tagline { font-size: 0.8rem; line-height: 1.7; max-width: 260px; }
-  .footer-col h4 {
-    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--white); margin-bottom: 1.2rem; font-weight: 400;
-  }
-  .footer-col ul { list-style: none; }
-  .footer-col li { margin-bottom: 0.6rem; }
-  .footer-col a {
-    font-size: 0.8rem; color: rgba(255,255,255,0.4);
-    text-decoration: none; cursor: none;
-    transition: color 0.3s;
-  }
-  .footer-col a:hover { color: var(--pink); }
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding-top: 1.5rem;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .footer-bottom p { font-size: 0.72rem; }
-  .footer-craft {
-    font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--pink);
-  }
-
-  /* ─── KEYFRAMES ──────────────────────────────────────── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── SCROLL REVEAL ──────────────────────────────────── */
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ─── GRAIN OVERLAY ──────────────────────────────────── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0; z-index: 9990;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: 0.4;
-  }
-</style>
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
@@ -678,8 +49,22 @@
     <li><a href="#audience">Associates</a></li>
     <li><a href="#partner">Partner</a></li>
   </ul>
-  <a href="#partner" class="nav-cta">Work with us</a>
+  <button type="button" class="nav-cta open-contact-form" aria-label="Open contact form">Work with us</button>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#events">Services</a></li>
+    <li><a href="#audience">Associates</a></li>
+    <li><a href="#partner">Partner</a></li>
+    <li><button type="button" class="btn-primary mobile-nav-cta open-contact-form" aria-label="Open contact form">Work with us</button></li>
+  </ul>
+</div>
 
 <!-- ── HERO ─────────────────────────────────────────────── -->
 <section class="hero" id="top">
@@ -701,28 +86,28 @@
 
   <div class="hero-right">
     <!-- Editorial photo grid — real imagery from 5Ws events represented as styled placeholders -->
-    <div class="hero-photo" style="grid-column:1; grid-row:1;">
-      <img src="images/DSC_0014.JPG" alt="Case Studies">
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+    <div class="hero-photo">
+      <img src="images/DSC_0014.JPG" alt="5Ws of Fashion case study event photography">
+      <div class="hero-photo-overlay">
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="20" r="12" stroke="#210747" stroke-width="1.5"/><path d="M10 55c0-11.046 8.954-20 20-20s20 8.954 20 20" stroke="#210747" stroke-width="1.5"/></svg>
       </div>
       <div class="hero-photo-tag">Case Studies</div>
     </div>
-    <div class="hero-photo" style="grid-column:2; grid-row:1;">
-      <img src="images/DSC_0029.JPG" alt="Research-led Principle-driven">
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--blush);text-align:center;padding:1rem;font-style:italic;line-height:1.4;">"Research-led.<br>Principle-driven."</p>
+    <div class="hero-photo">
+      <img src="images/DSC_0029.JPG" alt="Research-led principle-driven fashion consultancy">
+      <div class="hero-photo-overlay">
+        <p class="hero-photo-quote">"Research-led.<br>Principle-driven."</p>
       </div>
     </div>
-    <div class="hero-photo" style="grid-column:1; grid-row:2;">
-      <img src="images/DSC_0278.JPG" alt="Meet the team">
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color: var(--pink);font-weight:600;">Our research specialists</p>
+    <div class="hero-photo">
+      <img src="images/DSC_0278.JPG" alt="5Ws of Fashion research specialists team" loading="lazy">
+      <div class="hero-photo-overlay">
+        <p class="hero-photo-heading">Our research specialists</p>
       </div>
     </div>
-    <div class="hero-photo" style="grid-column:2; grid-row:2;">
-      <img src="images/DSC_0319.JPG" alt="Events Agency">
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+    <div class="hero-photo">
+      <img src="images/DSC_0319.JPG" alt="Fashion events agency showcase" loading="lazy">
+      <div class="hero-photo-overlay">
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="44" height="44" rx="2" stroke="#210747" stroke-width="1.5"/><path d="M8 22h44M22 22v30" stroke="#210747" stroke-width="1.5"/><circle cx="15" cy="15" r="3" fill="#b85e8e"/></svg>
       </div>
       <div class="hero-photo-tag">Events Agency</div>
@@ -765,7 +150,7 @@
   <div class="dark-inner">
     <p class="section-label">What We Do</p>
     <h2>Research-led.<br><em>Event-activated.</em><br>Commercially purposeful.</h2>
-    <div class="cta-btns reveal" style="margin-bottom: 4rem;">
+    <div class="cta-btns cta-btns-inline reveal">
       <a href="#partner" class="btn-ghost">Partner With Us</a>
     </div>
     <div class="services-grid reveal">
@@ -901,13 +286,18 @@
         <p>We don’t just host events - we create environments for immersive learning experiences, foundations for unpopular fashion perspectives to be expressed, genuine alignment with sustainable practice can be fostered, and where Leicester is championed as the British fashion hub where our story began.</p>
         <a href="#blog" class="about-link">Read the Rooted in Opulence blog</a>
       </div>
-      <div class="reveal"></div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color: var(--pink);font-weight:600;">Meet the team</p>
-        <img src="images/Profiles.png" alt="Meet the team">
+      <div class="reveal">
+        <img src="images/Profiles.png" alt="5Ws of Fashion full team group photo" loading="lazy">
       </div>
+
+     
       <div class="craft-pillars reveal">
+                              <div class="team-heading">Meet the team</div>
+                                <div class="craft-pillars-wrapper"></div>
         <div class="craft-pill">
+
     <div class="craft-pill-header">
+
       <div class="craft-image-container"><img src="images/Profiles-1.png" alt="Rumbie"></div>
       <div class="craft-letter-wrapper">
         <div class="craft-letter">Rumbie M.</div>
@@ -1025,17 +415,15 @@
         <p class="section-label">Insights,  Events &amp; Opportunities</p>
         <h2>Where the<br><em>conversations happen.</em></h2>
       </div>
-      <a href="#" class="about-link" style="color:var(--navy);margin-bottom:0.5rem;">View all events</a>
+      <a href="#" class="about-link">View all events</a>
     </div>
 
-    <div class="events-grid reveal" style="">
+    <div class="events-grid reveal">
       <!-- Feature event -->
       <div class="event-card">
-        <div class="event-card-img" style="background:linear-gradient(135deg,#210747 0%,var(--pink) 100%);">
+        <div class="event-card-img event-card-img--featured">
           <div class="event-badge">Featured</div>
-          <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;">
-            <p style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:rgba(255,255,255,0.15);font-weight:600;line-height:1;">5 Ws</p>
-          </div>
+          <p class="event-featured-watermark">5 Ws</p>
         </div>
         <div class="event-card-body">
           <p class="event-date">Spring 2026 · Arsh Gill</p>
@@ -1047,7 +435,7 @@
 
       <!-- Secondary events -->
       <div class="event-card">
-        <div class="event-card-img" style="background-image:url(/images/Screenshot 2026-04-20 at 16.35.29.png);">
+        <div class="event-card-img event-card-img--recap">
           <div class="event-badge">Past Event</div>
         </div>
         <div class="event-card-body">
@@ -1059,7 +447,7 @@
       </div>
 
       <div class="event-card">
-        <div class="event-card-img" style="background:linear-gradient(135deg,#f0d9e6 0%,#b85e8e 100%);">
+        <div class="event-card-img event-card-img--applications">
           <div class="event-badge">Applications Open</div>
         </div>
         <div class="event-card-body">
@@ -1075,14 +463,15 @@
 
 
 <!-- ── BLOG SECTION ───────────────────────────────────────── -->
-<section class="blog-section" id="blog" style="padding-top: 20px;">
+<section class="blog-section" id="blog">
   <div class="section-inner">
     <h2 class="section-label">Our Blog</h2>
     <p>Explore our latest thoughts, insights, and updates on fashion and sustainability.</p>
     <iframe 
       src="https://rootedinopulence.wordpress.com" 
-      style="width: 100%; height: 600px; border: none;" 
-      title="Rooted in Opulence Blog">
+      class="blog-iframe"
+      title="Rooted in Opulence Blog"
+      loading="lazy">
     </iframe>
   </div>
 </section>
@@ -1093,27 +482,89 @@
   <h2 class="cta-h2 reveal">Your brand deserves an<br><em>audience that listens.</em></h2>
   <p class="cta-desc reveal">We work only with forward-thinking brands ready to show genuine alignment with sustainable values — not just say the right words. If that sounds like you, let's talk.</p>
   <!-- ── TICKER / PARTNERS ──────────────────────────────────────── -->
-  <div class="ticker-wrap">
-    <div class="ticker">
-      <span class="ticker-item"><span>◆</span> <img src="images/legendryliving logo.png" alt="Legendry Living"></span>
-      <span class="ticker-item"><span>◆</span> <img src="images/Remove background project-5.png" alt="Heruno Halo"></span>
-      <span class="ticker-item"><span>◆</span> Adufe Lagos</span>
-      <span class="ticker-item"><span>◆</span> Ruii Clothing</span>
-      <span class="ticker-item"><span>◆</span> DMU Museum</span>
-      <span class="ticker-item"><span>◆</span> <img src="images/euforma logo no-background.png" alt="Euforma"></span>
-      <span class="ticker-item"><span>◆</span> <img src="images/NikJade Remove background.png" alt="NikJade"></span>
+  <!-- Partner Logos Ticker -->
+  <div class="partner-ticker">
+    <div class="ticker-wrap">
+      <div class="ticker">
+        <span class="ticker-item"><span>◆</span> <img src="images/legendryliving logo.png" alt="Legendry Living" loading="lazy"></span>
+        <span class="ticker-item"><span>◆</span> <img src="images/Remove background project-5.png" alt="Heruno Halo" loading="lazy"></span>
+        <span class="ticker-item"><span>◆</span> Adufe Lagos</span>
+        <span class="ticker-item"><span>◆</span> Ruii Clothing</span>
+        <span class="ticker-item"><span>◆</span> DMU Museum</span>
+        <span class="ticker-item"><span>◆</span> <img src="images/euforma logo no-background.png" alt="Euforma" loading="lazy"></span>
+        <span class="ticker-item"><span>◆</span> <img src="images/NikJade Remove background.png" alt="NikJade" loading="lazy"></span>
+        <!-- Duplicate set for seamless loop -->
+        <span class="ticker-item"><span>◆</span> <img src="images/legendryliving logo.png" alt="Legendry Living" loading="lazy"></span>
+        <span class="ticker-item"><span>◆</span> <img src="images/Remove background project-5.png" alt="Heruno Halo" loading="lazy"></span>
+        <span class="ticker-item"><span>◆</span> Adufe Lagos</span>
+        <span class="ticker-item"><span>◆</span> Ruii Clothing</span>
+        <span class="ticker-item"><span>◆</span> DMU Museum</span>
+        <span class="ticker-item"><span>◆</span> <img src="images/euforma logo no-background.png" alt="Euforma" loading="lazy"></span>
+        <span class="ticker-item"><span>◆</span> <img src="images/NikJade Remove background.png" alt="NikJade" loading="lazy"></span>
+      </div>
     </div>
   </div>
-  <div class="page-wrapper"><div class="section small top-24px mb0"><div class="container-default _120pad mb0 w-container"><div data-w-id="6d370a8c-07b6-db13-b4f8-71f11b4abe5f" style="transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); opacity: 1; transform-style: preserve-3d;" class="inner-container _515px center"></div></div></div><div class="container-default w-container"><div class="section-divider-wrapper"><div class="divider _0px" style="width: 100%; height: 1px;"></div></div></div><div id="inline" class="section top-0px"><div class="container-default w-container"><div data-w-id="e5be6668-4e3d-ae9d-976b-8160fbdf91b6" class="cta-card cta-v1" style="opacity: 1;"><div id="w-node-e5be6668-4e3d-ae9d-976b-8160fbdf91b9-fbdf91b6" class="inner-container"><h2 class="display-2 mg-bottom-0 center">Want to learn more? Schedule time with our team now</h2></div><div id="w-node-e5be6668-4e3d-ae9d-976b-8160fbdf91bd-fbdf91b6" class="inner-container"><div class="html-embed w-embed w-script"><!-- Calendly inline widget begin -->
-<div class="calendly-inline-widget" data-url="https://calendly.com/embed-demo-sales/discovery-call" style="position: relative;min-width:320px;height:700px;" data-processed="true"><div class="calendly-spinner"><div class="calendly-bounce1"></div><div class="calendly-bounce2"></div><div class="calendly-bounce3"></div></div><iframe src="https://calendly.com/embed-demo-sales/discovery-call?embed_domain=www.calendly-embed.com&amp;embed_type=Inline" width="100%" height="100%" frameborder="0" title="Select a Date &amp; Time - Calendly"></iframe></div>
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async=""></script>
-<style>.calendly-overlay .calendly-popup { max-width: 1105px !important; }</style>
-<!-- Calendly inline widget end --></div></div></div></div></div></div>  
-<div class="cta-btns reveal">
-    <a href="mailto:14fashiongroup@gmail.com" class="btn-primary">Get in touch</a>
+
+  <!-- Calendly Booking Widget -->
+  <div class="calendly-wrapper" id="inline">
+    <h2>Want to learn more? Schedule time with our team now</h2>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/embed-demo-sales/discovery-call" data-processed="true">
+      <iframe src="https://calendly.com/embed-demo-sales/discovery-call?embed_domain=www.calendly-embed.com&amp;embed_type=Inline" width="100%" height="100%" frameborder="0" title="Select a Date &amp; Time - Calendly" loading="lazy"></iframe>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <div class="cta-btns reveal">
+    <button type="button" class="btn-primary" id="openContactForm" aria-label="Open contact form">Get in touch</button>
     <a href="#events" class="btn-ghost">See our events</a>
   </div>
 </section>
+
+<!-- ── CONTACT FORM MODAL ──────────────────────────────────── -->
+<div class="contact-modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+  <div class="contact-modal-backdrop" id="contactModalBackdrop"></div>
+  <div class="contact-modal-content">
+    <button class="contact-modal-close" id="contactModalClose" aria-label="Close contact form">&times;</button>
+    <p class="contact-modal-label">Get in Touch</p>
+    <h2 id="contactModalTitle" class="contact-modal-title">Let's start a <em>conversation.</em></h2>
+    <p class="contact-modal-desc">Tell us about your brand, your vision, or how you'd like to collaborate. We'll get back to you within 48 hours.</p>
+    <form action="https://formspree.io/f/xpwrrwqo" method="POST" class="contact-form" id="contactForm">
+      <div class="contact-form-row">
+        <div class="contact-form-group">
+          <label for="contactName">Full Name</label>
+          <input type="text" id="contactName" name="name" required placeholder="Your name">
+        </div>
+        <div class="contact-form-group">
+          <label for="contactEmail">Email</label>
+          <input type="email" id="contactEmail" name="email" required placeholder="you@example.com">
+        </div>
+      </div>
+      <div class="contact-form-group">
+        <label for="contactSubject">Subject</label>
+        <select id="contactSubject" name="subject" required>
+          <option value="" disabled selected>Choose a topic…</option>
+          <option value="Partnership Enquiry">Partnership Enquiry</option>
+          <option value="Event Collaboration">Event Collaboration</option>
+          <option value="Brand Consultancy">Brand Consultancy</option>
+          <option value="Volunteer / Mentorship">Volunteer / Mentorship</option>
+          <option value="Press / Media">Press / Media</option>
+          <option value="General Enquiry">General Enquiry</option>
+        </select>
+      </div>
+      <div class="contact-form-group">
+        <label for="contactMessage">Message</label>
+        <textarea id="contactMessage" name="message" rows="5" required placeholder="Tell us about your project or enquiry…"></textarea>
+      </div>
+      <input type="hidden" name="_subject" value="New enquiry from 5Ws of Fashion website">
+      <button type="submit" class="btn-primary contact-form-submit" id="contactSubmitBtn">Send Message</button>
+    </form>
+    <div class="contact-form-success" id="contactFormSuccess">
+      <div class="contact-success-icon">✓</div>
+      <h3>Message Sent!</h3>
+      <p>Thank you for reaching out. We'll get back to you within 48 hours.</p>
+    </div>
+  </div>
+</div>
 
 <!-- ── FOOTER ─────────────────────────────────────────────── -->
 <footer>
@@ -1146,74 +597,20 @@
         <h4>Connect</h4>
         <ul>
           <li><a href="#">LinkedIn</a></li>
-          <li><a href="instagram.com/5wsoffashion">Instagram</a></li>
-          <li><a href="rootedinopulence.wordpress.com/">Newsletter</a></li>
+          <li><a href="https://instagram.com/5wsoffashion" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://rootedinopulence.wordpress.com/" target="_blank" rel="noopener">Newsletter</a></li>
           <li><a href="#inline">Volunteer</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 14fashion Group Ltd. Website by <a href="https://integrate.servantleaders.uk/" style="color:var(--pink);cursor:none;">Integrate &amp; Partners</a>.</p>
+      <p>© 2026 14fashion Group Ltd. Website by <a href="https://integrate.servantleaders.uk/" target="_blank" rel="noopener">Integrate &amp; Partners</a>.</p>
       <span class="footer-craft">C.R.A.F.T</span>
     </div>
   </div>
 </footer>
 
 <!-- ── JS ────────────────────────────────────────────────── -->
-<script>
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animateCursor() {
-    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px'; cursor.style.height = '20px';
-      ring.style.width = '54px'; ring.style.height = '54px'; ring.style.opacity = '0.3';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '10px'; cursor.style.height = '10px';
-      ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.6';
-    });
-  });
-
-  // Nav scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => observer.observe(r));
-
-  // Scrollable events grid
-  const container = document.querySelector('.events-grid');
-
-  container.addEventListener('wheel', (e) => {
-    // Prevent vertical scrolling
-    e.preventDefault();
-    
-    // Scroll horizontally based on vertical wheel movement
-    // Adjust multiplier (e.g., 2) to change scroll speed
-    container.scrollLeft += e.deltaY * 1.5;
-  }, { passive: false });
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>

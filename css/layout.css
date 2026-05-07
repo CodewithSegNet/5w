@@ -1,0 +1,74 @@
+/* ═══════════════════════════════════════════════════════════
+   LAYOUT — 5Ws of Fashion
+   Section containers, grid patterns, generic wrappers
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Generic Section ──────────────────────────────────── */
+.section {
+  padding: var(--section-pad-y) var(--section-pad-x);
+}
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ── Section Label (small uppercase heading) ──────────── */
+.section-label {
+  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  margin-bottom: 1rem;
+}
+
+/* ── About Grid (2-col: text + visual) ────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem 6rem;
+  align-items: start;
+}
+
+/* Craft pillars spans full width below the 2-col row */
+.about-grid > .craft-pillars {
+  grid-column: 1 / -1;
+}
+
+/* ── Services Grid (3-col) ────────────────────────────── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+/* ── Craft Pillars Grid (2-col) ───────────────────────── */
+.craft-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* ── Events Grid ──────────────────────────────────────── */
+.events-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1.5rem;
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  scrollbar-width: none;
+}
+
+.events-grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Footer Grid ──────────────────────────────────────── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
