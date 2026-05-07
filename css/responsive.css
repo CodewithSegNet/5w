@@ -18,6 +18,8 @@
 
   .about-grid { gap: 4rem; }
 
+  .second-about-section { padding: 5rem 3rem 4rem; gap: 3rem; }
+
   .craft-pillars { gap: 1rem; }
 
   .footer-grid { gap: 2rem; }
@@ -177,6 +179,13 @@
   .dark-section { padding: 5rem 2rem; }
   .dark-section .cta-btns-inline { margin-bottom: 0; }
 
+  /* Second about section */
+  .second-about-section {
+    flex-direction: column;
+    padding: 4rem 2rem;
+    gap: 2.5rem;
+  }
+
   /* CTA */
   .cta-section { padding: 4rem 2rem; }
   .cta-section::after { font-size: 10rem; }
@@ -277,6 +286,8 @@
   /* About section */
   .section { padding: 3.5rem 1.2rem; }
   .team-heading { font-size: 2rem; }
+
+  .second-about-section { padding: 3rem 1.2rem; gap: 2rem; }
 
   .craft-pill { padding: 1.4rem; }
   .craft-image-container { width: 80px; height: 80px; }

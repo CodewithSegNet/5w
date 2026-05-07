@@ -15,7 +15,7 @@
 .hero-left {
   background: var(--cream);
   display: flex; flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 6rem 4rem 5rem;
   position: relative; overflow: hidden;
 }
@@ -79,7 +79,46 @@
   gap: 3px;
 }
 
+.second-about-section {
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
+  padding: 6rem 8rem 5rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.second-about-section .about-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.second-about-section > .reveal {
+  flex: 1;
+  min-width: 0;
+}
+
+.second-about-section > .reveal img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
 .hero-photo { overflow: hidden; position: relative; }
+
+.hero-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(33, 7, 71, 0.25) 0%,
+    rgba(33, 7, 71, 0.5) 100%
+  );
+  pointer-events: none; z-index: 1;
+}
 
 .hero-photo img {
   width: 100%; height: 100%; object-fit: cover;
@@ -93,23 +132,27 @@
   background: var(--navy); color: var(--white);
   font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
   padding: 0.35rem 0.8rem; pointer-events: none;
+  z-index: 2;
 }
 
 .hero-photo-overlay {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero-photo-quote {
   font-family: var(--font-display); font-size: 1.4rem;
-  color: var(--blush); text-align: center;
+  color: var(--white); text-align: center;
   padding: 1rem; font-style: italic; line-height: 1.4;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 .hero-photo-heading {
   font-family: var(--font-display); font-size: 3rem;
-  color: var(--pink); font-weight: 600;
+  color: var(--white); font-weight: 600;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
 /* Stat strip across hero-right */
@@ -173,7 +216,7 @@
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   font-weight: 300; color: var(--white);
-  margin-bottom: 4rem; max-width: 600px; line-height: 1.2;
+  margin-bottom: 0rem; max-width: 600px; line-height: 1.2;
 }
 
 .dark-section h2 em { font-style: italic; color: var(--navy); }
@@ -217,6 +260,10 @@
 
 .event-card-img--applications {
   background: linear-gradient(135deg, #f0d9e6 0%, #b85e8e 100%);
+}
+
+.pd{
+  padding-top: 10px;
 }
 
 .event-featured-watermark {
@@ -358,9 +405,11 @@ footer {
 .footer-brand-name {
   font-family: var(--font-display); font-size: 1.6rem; font-weight: 600;
   color: var(--white); margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.3rem;
 }
 
-.footer-brand-name span { color: var(--pink); }
+.footer-brand-name span { color: var(--pink); display: inline-flex; }
+.footer-brand-name img { height: 80px; width: auto; }
 .footer-tagline { font-size: 0.8rem; line-height: 1.7; max-width: 260px; }
 
 .footer-col h4 {
