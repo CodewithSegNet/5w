@@ -135,6 +135,14 @@
   z-index: 2;
 }
 
+.hero-photo-tag-two {
+  position: absolute; bottom: 5.3rem; left: 1.2rem;
+  background: var(--navy); color: var(--white);
+  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.35rem 0.8rem; pointer-events: none;
+  z-index: 2;
+}
+
 .hero-photo-overlay {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
@@ -182,18 +190,20 @@
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 4vw, 3.6rem);
   font-weight: 300; line-height: 1.15;
-  color: var(--navy); margin-bottom: 1.8rem;
+  color: var(--navy); margin-bottom: 1rem;
 }
 
 .about-text h2 em { font-style: italic; color: var(--pink); }
 
 .about-text p {
-  font-size: 0.9rem; color: #555; line-height: 1.9; margin-bottom: 1.2rem;
+  font-size: 0.9rem; color: #555; line-height: 1.5; margin-bottom: 1rem;
 }
 
 .team-heading {
-  font-family: var(--font-display); font-size: 3rem;
-  color: var(--pink); font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 300; line-height: 1.15;
+  color: var(--pink);
   margin-bottom: -1rem;
 }
 
