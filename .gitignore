@@ -1,0 +1,5 @@
+5wof_backend/venv/
+5wof_backend/instance/
+5wof_backend/.env
+5wof_backend/instance
+5wof_backend/.DS_Store

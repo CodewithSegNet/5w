@@ -12,43 +12,44 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!isTouchDevice) {
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
 
-    document.addEventListener('mousemove', (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-    });
+    if (cursor && ring) {
+      let mx = 0, my = 0, rx = 0, ry = 0;
 
-    function animateCursor() {
-      cursor.style.left = mx + 'px';
-      cursor.style.top = my + 'px';
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.left = rx + 'px';
-      ring.style.top = ry + 'px';
-      requestAnimationFrame(animateCursor);
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+      }, { passive: true });
+
+      function animateCursor() {
+        cursor.style.transform = `translate(${mx}px, ${my}px)`;
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.transform = `translate(${rx}px, ${ry}px)`;
+        requestAnimationFrame(animateCursor);
+      }
+
+      animateCursor();
+
+      // Hover effect on interactive elements
+      document.querySelectorAll('a, button').forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '20px';
+          cursor.style.height = '20px';
+          ring.style.width = '54px';
+          ring.style.height = '54px';
+          ring.style.opacity = '0.3';
+        });
+
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '10px';
+          cursor.style.height = '10px';
+          ring.style.width = '36px';
+          ring.style.height = '36px';
+          ring.style.opacity = '0.6';
+        });
+      });
     }
-
-    animateCursor();
-
-    // Hover effect on interactive elements
-    document.querySelectorAll('a, button').forEach((el) => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        ring.style.width = '54px';
-        ring.style.height = '54px';
-        ring.style.opacity = '0.3';
-      });
-
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '10px';
-        cursor.style.height = '10px';
-        ring.style.width = '36px';
-        ring.style.height = '36px';
-        ring.style.opacity = '0.6';
-      });
-    });
   }
 
   // ── Nav Scroll Effect ─────────────────────────────────

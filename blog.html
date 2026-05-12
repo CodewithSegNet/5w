@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Rooted in Opulence — The official blog of 5Ws of Fashion. Explore articles on fashion heritage, sustainability, and emerging designers.">
+<title>Blog — Rooted in Opulence | 5Ws of Fashion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="images/favicon_io/favicon.ico">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/blog-events.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo"><img src="images/Untitled-1.png" alt="5WOF Fashion Firm" style="width:100px;height:auto;"></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#plans">Events</a></li>
+    <li><a href="blog.html" style="color:var(--pink)">Blog</a></li>
+    <li><a href="index.html#partner">Partner</a></li>
+  </ul>
+  <a href="index.html#partner" class="nav-cta">Get in Touch</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#plans">Events</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="index.html#partner">Partner</a></li>
+    <li><a href="index.html#partner" class="mobile-nav-cta nav-cta">Get in Touch</a></li>
+  </ul>
+</div>
+
+<!-- Blog Hero -->
+<section class="blog-hero">
+  <p class="blog-hero-label">Rooted in Opulence</p>
+  <h1>Where Heritage Meets<br><em>Haute Couture.</em></h1>
+  <p class="blog-hero-desc">Exploring the intersection of fashion heritage, sustainability, and emerging design talent from De Montfort University.</p>
+
+  <div class="blog-search-wrap">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="blogSearch" placeholder="Search articles, designers, topics…" autocomplete="off">
+  </div>
+</section>
+
+<!-- Category Filters -->
+<div class="blog-filters" id="blogFilters">
+  <button class="blog-filter-pill active" data-tag="">All</button>
+  <button class="blog-filter-pill" data-tag="fashion">Fashion</button>
+  <button class="blog-filter-pill" data-tag="sustainability">Sustainability</button>
+  <button class="blog-filter-pill" data-tag="runway">Runway</button>
+  <button class="blog-filter-pill" data-tag="art">Art</button>
+  <button class="blog-filter-pill" data-tag="lifestyle">Lifestyle</button>
+  <button class="blog-filter-pill" data-tag="entrepreneurship">Entrepreneurship</button>
+  <button class="blog-filter-pill" data-tag="writing">Writing</button>
+</div>
+
+<!-- Blog Content -->
+<div class="blog-page-content" style="background:var(--ivory);">
+  <p class="blog-page-stats" id="blogStats"></p>
+  <div class="blog-page-grid" id="blogPageGrid">
+    <!-- Dynamically populated -->
+  </div>
+  <div class="blog-pagination" id="blogPagination"></div>
+</div>
+
+<!-- Blog Detail Modal -->
+<div class="blog-detail-overlay" id="blogDetailOverlay">
+  <div class="blog-detail-content">
+    <button class="blog-detail-close" id="blogDetailClose">&times;</button>
+    <div class="blog-detail-hero" id="blogDetailHero"></div>
+    <div class="blog-detail-body" id="blogDetailBody"></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name"><img src="images/Untitled-1.png" alt="5WOF" style="height:80px;width:auto;filter:brightness(0) invert(1);"></div>
+        <p class="footer-tagline">Research-led, event-activated fashion consultancy bridging academic insight and real-world practice.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#plans">Events</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="index.html#partner">Partner</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.linkedin.com/company/5wsoffashion" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/5wsoffashion" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 14fashion Group Ltd. All rights reserved.</p>
+      <span class="footer-craft">Crafted with intention</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API_URL = 'http://localhost:8000';
+let currentPage = 1;
+let currentSearch = '';
+let currentTag = '';
+const LIMIT = 9;
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadBlogPage();
+  setupSearch();
+  setupFilters();
+  setupBlogDetail();
+  setupMobileNav();
+});
+
+async function loadBlogPage() {
+  const grid = document.getElementById('blogPageGrid');
+  const stats = document.getElementById('blogStats');
+  const pagination = document.getElementById('blogPagination');
+
+  let url = `${API_URL}/api/blog/public?limit=${LIMIT}&page=${currentPage}`;
+  if (currentSearch) url += `&search=${encodeURIComponent(currentSearch)}`;
+  if (currentTag) url += `&tag=${encodeURIComponent(currentTag)}`;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+
+    stats.textContent = `${data.total} article${data.total !== 1 ? 's' : ''} found`;
+
+    if (!data.posts.length) {
+      grid.innerHTML = '<div class="blog-empty"><h3>No articles found</h3><p>Try adjusting your search or filters.</p></div>';
+      pagination.innerHTML = '';
+      return;
+    }
+
+    grid.innerHTML = data.posts.map(p => blogCardHTML(p)).join('');
+    renderPagination(data.page, data.pages);
+  } catch(e) {
+    grid.innerHTML = '<div class="blog-empty"><h3>Unable to load</h3><p>Please try again later.</p></div>';
+  }
+}
+
+function blogCardHTML(p) {
+  const date = new Date(p.created_at).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+  const imgHtml = p.cover_image
+    ? `<img src="${resolveImageUrl(p.cover_image)}" alt="${esc(p.title)}" loading="lazy">`
+    : `<div class="blog-card-image-fallback" data-initial="${esc(p.title.charAt(0))}"></div>`;
+  const catHtml = p.category ? `<span class="blog-card-category">${esc(p.category)}</span>` : '';
+  const tagsHtml = p.tags ? p.tags.split(',').slice(0,3).map(t => `<span>${esc(t.trim())}</span>`).join('') : '';
+
+  return `<article class="blog-card" onclick="openBlogDetail('${esc(p.slug)}')">
+    <div class="blog-card-image">${imgHtml}${catHtml}</div>
+    <div class="blog-card-body">
+      <p class="blog-card-meta">${date}</p>
+      <h3 class="blog-card-title">${esc(p.title)}</h3>
+      <p class="blog-card-excerpt">${esc(p.excerpt || '')}</p>
+      ${tagsHtml ? `<div class="blog-card-tags">${tagsHtml}</div>` : ''}
+      <div class="blog-card-footer">
+        <span class="blog-card-author">${esc(p.author)}</span>
+        <span class="blog-card-readmore">Read more</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderPagination(page, pages) {
+  const wrap = document.getElementById('blogPagination');
+  if (pages <= 1) { wrap.innerHTML = ''; return; }
+  let html = `<button ${page<=1?'disabled':''} onclick="goPage(${page-1})">‹</button>`;
+  for (let i = 1; i <= pages; i++) {
+    html += `<button class="${i===page?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  html += `<button ${page>=pages?'disabled':''} onclick="goPage(${page+1})">›</button>`;
+  wrap.innerHTML = html;
+}
+
+function goPage(p) {
+  currentPage = p;
+  loadBlogPage();
+  document.querySelector('.blog-page-content').scrollIntoView({ behavior:'smooth' });
+}
+
+function setupSearch() {
+  const input = document.getElementById('blogSearch');
+  let timer;
+  input?.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      currentSearch = input.value.trim();
+      currentPage = 1;
+      loadBlogPage();
+    }, 350);
+  });
+}
+
+function setupFilters() {
+  document.getElementById('blogFilters')?.addEventListener('click', (e) => {
+    const pill = e.target.closest('.blog-filter-pill');
+    if (!pill) return;
+    document.querySelectorAll('.blog-filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    currentTag = pill.dataset.tag || '';
+    currentPage = 1;
+    loadBlogPage();
+  });
+}
+
+/* Blog Detail */
+function setupBlogDetail() {
+  const overlay = document.getElementById('blogDetailOverlay');
+  const closeBtn = document.getElementById('blogDetailClose');
+  closeBtn?.addEventListener('click', closeBlogDetail);
+  overlay?.addEventListener('click', (e) => { if(e.target===overlay) closeBlogDetail(); });
+  document.addEventListener('keydown', (e) => { if(e.key==='Escape') closeBlogDetail(); });
+}
+
+async function openBlogDetail(slug) {
+  const overlay = document.getElementById('blogDetailOverlay');
+  const hero = document.getElementById('blogDetailHero');
+  const body = document.getElementById('blogDetailBody');
+  try {
+    const res = await fetch(`${API_URL}/api/blog/public/${slug}`);
+    if (!res.ok) return;
+    const p = await res.json();
+    const date = new Date(p.created_at).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+    hero.innerHTML = p.cover_image ? `<img src="${resolveImageUrl(p.cover_image)}" alt="${esc(p.title)}">` : '';
+    hero.style.background = p.cover_image ? '' : 'linear-gradient(135deg, var(--navy) 0%, var(--pink) 100%)';
+    const tagsHtml = p.tags ? `<div class="blog-detail-tags">${p.tags.split(',').map(t=>`<span class="blog-card-tags"><span>${esc(t.trim())}</span></span>`).join('')}</div>` : '';
+    const linkHtml = p.external_link ? `<a href="${esc(p.external_link)}" target="_blank" rel="noopener" class="blog-detail-link">Read More →</a>` : '';
+    const contentHtml = renderBlogContent(p.content);
+    body.innerHTML = `<p class="blog-detail-meta">${date} · ${esc(p.author)} · ${esc(p.category||'')}</p><h1>${esc(p.title)}</h1><div class="blog-content">${contentHtml}</div>${tagsHtml}${linkHtml}`;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  } catch(e) {}
+}
+
+function closeBlogDetail() {
+  const overlay = document.getElementById('blogDetailOverlay');
+  if(overlay) { overlay.classList.remove('open'); document.body.style.overflow=''; }
+}
+
+/* Mobile Nav — now handled by main.js via matching IDs */
+function setupMobileNav() {
+  // main.js handles navHamburger + mobileMenuOverlay
+}
+
+function esc(str) {
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function resolveImageUrl(url) {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
+  return API_URL + url;
+}
+
+function renderBlogContent(content) {
+  if (!content) return '';
+  if (/<[a-z][\s\S]*>/i.test(content)) {
+    return content.replace(/(<img[^>]+src=["'])(\/uploads\/[^"']+)(["'])/gi, (match, prefix, path, suffix) => {
+      return prefix + API_URL + path + suffix;
+    });
+  }
+  return content.split('\n\n').map(para => `<p>${esc(para)}</p>`).join('');
+}
+</script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
