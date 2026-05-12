@@ -3,7 +3,10 @@
    ══════════════════════════════════════════════════ */
 
 // API_BASE points to the FastAPI backend (Render in production, localhost in dev)
-const API_BASE = window.__API_BASE__ || 'http://localhost:8000';
+const API_BASE = window.__API_BASE__ ||
+  (window.location.hostname === 'localhost'
+    ? 'http://localhost:8000'
+    : 'https://fivew-be.onrender.com');
 
 const Auth = {
   token: localStorage.getItem('5wof_token'),
