@@ -3,3 +3,22 @@
 5wof_backend/.env
 5wof_backend/instance
 5wof_backend/.DS_Store
+5wof_backend/*
+
+# macOS
+.DS_Store
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+
+# Backend
+5wof_backend/
+
+# Instance folders
+instance/
+5wof_backend/instance/
