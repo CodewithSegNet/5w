@@ -133,7 +133,10 @@
 </footer>
 
 <script>
-const API_URL = 'http://localhost:8000';
+const API_URL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:8000'
+    : 'https://fivew-be.onrender.com';
 let currentPage = 1;
 let currentSearch = '';
 let currentTag = '';

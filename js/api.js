@@ -3,8 +3,11 @@
    Loads blog posts, events carousel, and contact form
    ══════════════════════════════════════════════════ */
 
-const API_URL = 'http://localhost:8000';
-
+const API_URL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:8000'
+    : 'https://fivew-be.onrender.com';
+    
 document.addEventListener('DOMContentLoaded', () => {
   loadFeaturedBlog();
   loadPublicEvents();
