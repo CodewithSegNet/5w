@@ -11,7 +11,8 @@ body { cursor: none; }
   width: 10px; height: 10px; border-radius: 50%;
   background: var(--navy);
   margin: -5px 0 0 -5px;
-  will-change: transform;
+  will-change: translate;
+  contain: layout style;
   transition: width 0.3s, height 0.3s, background 0.3s, margin 0.3s;
 }
 
@@ -20,7 +21,8 @@ body { cursor: none; }
   width: 36px; height: 36px; border-radius: 50%;
   border: 1px solid var(--navy);
   margin: -18px 0 0 -18px;
-  will-change: transform;
+  will-change: translate;
+  contain: layout style;
   transition: width 0.3s, height 0.3s, opacity 0.3s, margin 0.3s;
   opacity: 0.6;
 }

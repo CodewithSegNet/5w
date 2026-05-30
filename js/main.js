@@ -8,28 +8,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Touch Device Detection ────────────────────────────
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
-  // ── Custom Cursor ─────────────────────────────────────
+  // ── Custom Cursor (GPU-composited) ─────────────────────
   if (!isTouchDevice) {
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
 
     if (cursor && ring) {
       let mx = 0, my = 0, rx = 0, ry = 0;
+      let ticking = false;
 
       document.addEventListener('mousemove', (e) => {
         mx = e.clientX;
         my = e.clientY;
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateCursor);
+        }
       }, { passive: true });
 
-      function animateCursor() {
-        cursor.style.transform = `translate(${mx}px, ${my}px)`;
+      function updateCursor() {
+        cursor.style.translate = `${mx}px ${my}px`;
         rx += (mx - rx) * 0.12;
         ry += (my - ry) * 0.12;
-        ring.style.transform = `translate(${rx}px, ${ry}px)`;
-        requestAnimationFrame(animateCursor);
+        ring.style.translate = `${rx}px ${ry}px`;
+        // Continue animation for the trailing ring
+        if (Math.abs(mx - rx) > 0.5 || Math.abs(my - ry) > 0.5) {
+          requestAnimationFrame(updateCursor);
+        } else {
+          ticking = false;
+        }
       }
-
-      animateCursor();
 
       // Hover effect on interactive elements
       document.querySelectorAll('a, button').forEach((el) => {
@@ -169,34 +177,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Formspree async submission
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const submitBtn = document.getElementById('contactSubmitBtn');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Sending…';
-      submitBtn.disabled = true;
-
-      try {
-        const response = await fetch(contactForm.action, {
-          method: 'POST',
-          body: new FormData(contactForm),
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          contactForm.style.display = 'none';
-          contactSuccess.classList.add('show');
-          contactForm.reset();
-        } else {
-          throw new Error('Form submission failed');
-        }
-      } catch (err) {
-        submitBtn.textContent = 'Error — Try Again';
-        submitBtn.disabled = false;
-        setTimeout(() => { submitBtn.textContent = originalText; }, 3000);
-      }
-    });
-  }
+  // Form submission is handled by api.js (backend API with Formspree fallback)
 });

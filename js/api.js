@@ -236,43 +236,69 @@ function initCarousel() {
 function setupContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
-  form.removeAttribute('action');
-  const clone = form.cloneNode(true);
-  form.parentNode.replaceChild(clone, form);
-  
-  clone.addEventListener('submit', async (e) => {
+
+  // Prevent Formspree default action — we handle submission via JS
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = clone.querySelector('#contactSubmitBtn') || clone.querySelector('button[type="submit"]');
+    const btn = form.querySelector('#contactSubmitBtn') || form.querySelector('button[type="submit"]');
     const success = document.getElementById('contactFormSuccess');
     const origText = btn ? btn.textContent : 'Send';
     if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
-    
+
     const data = {
-      name: clone.querySelector('#contactName').value,
-      email: clone.querySelector('#contactEmail').value,
-      subject: clone.querySelector('#contactSubject').value,
-      message: clone.querySelector('#contactMessage').value,
+      name: form.querySelector('#contactName').value.trim(),
+      email: form.querySelector('#contactEmail').value.trim(),
+      subject: form.querySelector('#contactSubject').value,
+      message: form.querySelector('#contactMessage').value.trim(),
     };
-    
+
+    // Basic validation
+    if (!data.name || !data.email || !data.subject || !data.message) {
+      if (btn) { btn.textContent = origText; btn.disabled = false; }
+      return;
+    }
+
+    let submitted = false;
+
+    // Primary: try the backend API (connects to dashboard)
     try {
       const res = await fetch(`${API_URL}/api/contacts/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (res.ok) {
-        clone.style.display = 'none';
-        if (success) success.classList.add('show');
-        clone.reset();
-      } else {
-        throw new Error('Submission failed');
+      if (res.ok) submitted = true;
+    } catch (_) { /* backend unreachable — fall through */ }
+
+    // Fallback: Formspree via AJAX (no page redirect)
+    if (!submitted) {
+      try {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('email', data.email);
+        formData.append('subject', data.subject);
+        formData.append('message', data.message);
+        formData.append('_subject', 'New enquiry from 5Ws of Fashion website');
+
+        const res = await fetch('https://formspree.io/f/xpwrrwqo', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' },
+        });
+        if (res.ok) submitted = true;
+      } catch (_) { /* Formspree also failed */ }
+    }
+
+    if (submitted) {
+      form.style.display = 'none';
+      if (success) success.classList.add('show');
+      form.reset();
+    } else {
+      if (btn) {
+        btn.textContent = 'Error — Try Again';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = origText; }, 3000);
       }
-    } catch(err) {
-      clone.setAttribute('action', 'https://formspree.io/f/xpwrrwqo');
-      clone.setAttribute('method', 'POST');
-      clone.submit();
-    } finally {
-      if (btn) { btn.textContent = origText; btn.disabled = false; }
     }
   });
 }
