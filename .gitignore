@@ -22,3 +22,4 @@ __pycache__/
 # Instance folders
 instance/
 5wof_backend/instance/
+.vercel

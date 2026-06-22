@@ -106,6 +106,7 @@ function loadPage(page) {
     case 'blog': loadBlog(); break;
     case 'contacts': loadContacts(); break;
     case 'events': loadEvents(); break;
+    case 'hero': loadHero(); break;
     case 'users': loadUsers(); break;
     default: loadOverview();
   }
@@ -137,6 +138,12 @@ async function loadOverview() {
           <div class="stat-value">${stats.events.total}</div>
           <div class="stat-label">Events</div>
           <div class="stat-sub">${stats.events.published} published</div>
+        </div>
+        <div class="stat-card stat-card--purple">
+          <div class="stat-icon stat-icon--purple"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="stat-value">${stats.hero?.cards || 0}</div>
+          <div class="stat-label">Hero Cards</div>
+          <div class="stat-sub">${stats.hero?.visible || 0} visible · ${stats.hero?.stats || 0} stats</div>
         </div>
       </div>`;
   } catch(e) { area.innerHTML = '<p style="color:var(--danger);padding:2rem">Failed to load stats</p>'; }
@@ -787,6 +794,239 @@ function uploadEventImage(id) {
     if (res.ok) { closeModal(); toast('Image uploaded'); loadEvents(); }
     else { toast('Upload failed','error'); btn.disabled = false; btn.textContent = 'Upload'; }
   };
+}
+
+/* ── HERO SECTION MANAGEMENT ──────────────────── */
+let heroTab = 'cards';
+
+async function loadHero() {
+  const area = document.getElementById('contentArea');
+  area.innerHTML = `
+    <div class="page-header"><div><h1>Hero Section</h1><p>Manage the homepage hero photo cards and stats strip</p></div></div>
+    <div class="hero-tabs" style="display:flex;gap:0.5rem;margin-bottom:1.5rem;">
+      <button class="filter-btn ${heroTab==='cards'?'active':''}" onclick="heroTab='cards';loadHero()">Photo Cards</button>
+      <button class="filter-btn ${heroTab==='stats'?'active':''}" onclick="heroTab='stats';loadHero()">Stats Strip</button>
+    </div>
+    <div id="heroContent"></div>`;
+  if (heroTab === 'cards') await loadHeroCards();
+  else await loadHeroStats();
+}
+
+async function loadHeroCards() {
+  const container = document.getElementById('heroContent');
+  try {
+    const res = await Auth.api('/api/hero/cards');
+    const cards = await res.json();
+    let html = `<div class="header-actions" style="margin-bottom:1rem;"></div>`;
+    if (!cards.length) {
+      html += '<div class="table-empty">No hero cards yet. Create your first card!</div>';
+    } else {
+      html += '<div class="events-card-grid">';
+      cards.forEach(c => {
+        const imgHtml = c.image_url
+          ? `<div class="event-dash-img"><img src="${esc(c.image_url)}" alt="${esc(c.alt_text||'')}"></div>`
+          : `<div class="event-dash-img" style="background:linear-gradient(135deg, #210747 0%, #811654 70%, #c43b8e 100%);display:flex;align-items:center;justify-content:center;"><span style="font-size:1.5rem;color:rgba(255,255,255,0.2);font-family:'Cormorant Garamond',serif;">No Image</span></div>`;
+        const vis = c.is_visible ? 'published' : 'draft';
+        const tagBadge = c.tag_text ? `<span style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;background:var(--brand-glow);color:var(--brand-accent);padding:0.2rem 0.5rem;border-radius:4px;margin-left:0.5rem;">${esc(c.tag_text)}</span>` : '';
+        html += `<div class="event-dash-card">
+          ${imgHtml}
+          <div class="event-dash-body">
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.4rem;">
+              <span class="status-badge status-badge--${vis}"><span class="status-dot"></span>${vis === 'published' ? 'Visible' : 'Hidden'}</span>
+              <span style="font-size:0.75rem;color:var(--text-muted);">Order: ${c.display_order}</span>
+              ${tagBadge}
+            </div>
+            <p style="font-size:0.82rem;color:var(--text-secondary);line-height:1.5;max-height:4.5em;overflow:hidden;">${esc((c.quote||'').substring(0,120))}${(c.quote||'').length>120?'…':''}</p>
+            <div class="action-btns" style="margin-top:0.75rem">
+              <button class="action-btn" onclick="editHeroCard(${c.id})" title="Edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
+            </div>
+          </div>
+        </div>`;
+      });
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  } catch(e) { container.innerHTML = '<p style="color:var(--danger)">Failed to load hero cards</p>'; }
+}
+
+function showHeroCardForm(card = null) {
+  const isEdit = !!card;
+  openModal(isEdit ? 'Edit Hero Card' : 'New Hero Card', `
+    <form class="modal-form" id="heroCardForm">
+      <div class="form-group"><label>Quote / Overlay Text</label><textarea id="hcQuote" rows="3" placeholder="The quote that appears over the image…">${esc(card?.quote||'')}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Tag Text</label><input type="text" id="hcTagText" value="${esc(card?.tag_text||'')}" placeholder="e.g. Case Studies"></div>
+        <div class="form-group"><label>Tag Style</label><select id="hcTagStyle">
+          <option value="primary" ${card?.tag_style==='primary'||!card?'selected':''}>Primary (top-right)</option>
+          <option value="secondary" ${card?.tag_style==='secondary'?'selected':''}>Secondary (bottom-left)</option>
+          <option value="" ${card?.tag_style===''?'selected':''}>No tag</option>
+        </select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Alt Text</label><input type="text" id="hcAltText" value="${esc(card?.alt_text||'')}" placeholder="Image description for accessibility"></div>
+        <div class="form-group"><label>Display Order</label><input type="number" id="hcOrder" value="${card?.display_order ?? 0}" min="0"></div>
+      </div>
+      <div class="form-group"><label>Card Image</label>
+        <input type="hidden" id="hcImageUrl" value="${esc(card?.image_url||'')}">
+        <div class="image-upload-area" id="hcDropZone">
+          <input type="file" id="hcImageInput" accept="image/*">
+          <div class="upload-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <p class="upload-text">Drag & drop or <strong>click to browse</strong></p>
+        </div>
+        <div id="hcImgPreview" class="image-preview" style="${card?.image_url?'':'display:none'}">${card?.image_url?`<img src="${esc(card.image_url)}"><button type="button" class="image-preview-remove" onclick="removeHcPreview()">&times;</button>`:''}</div>
+      </div>
+      <div class="form-group"><label><input type="checkbox" id="hcVisible" ${card?.is_visible!==false?'checked':''}> Visible on website</label></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary-dash">${isEdit?'Update':'Create'} Card</button>
+      </div>
+    </form>`);
+
+  // Image upload handler
+  const hcFileInput = document.getElementById('hcImageInput');
+  const hcDropZone = document.getElementById('hcDropZone');
+  const hcPreview = document.getElementById('hcImgPreview');
+  const hcImgField = document.getElementById('hcImageUrl');
+
+  async function handleHcFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const fd = new FormData(); fd.append('file', file);
+    hcDropZone.querySelector('.upload-text').innerHTML = 'Uploading…';
+    try {
+      const res = await Auth.api('/api/hero/upload-image', { method:'POST', body: fd });
+      if (res.ok) {
+        const data = await res.json();
+        hcImgField.value = data.image_url;
+        hcPreview.innerHTML = `<img src="${data.image_url}"><button type="button" class="image-preview-remove" onclick="removeHcPreview()">&times;</button>`;
+        hcPreview.style.display = 'block';
+        hcDropZone.querySelector('.upload-text').innerHTML = 'Image uploaded ✓ — drag another to replace';
+      } else {
+        hcDropZone.querySelector('.upload-text').innerHTML = 'Upload failed — try again';
+      }
+    } catch(e) {
+      hcDropZone.querySelector('.upload-text').innerHTML = 'Upload failed — try again';
+    }
+  }
+  if (hcFileInput) hcFileInput.addEventListener('change', (e) => handleHcFile(e.target.files[0]));
+  if (hcDropZone) {
+    hcDropZone.addEventListener('dragover', (e) => { e.preventDefault(); hcDropZone.classList.add('dragover'); });
+    hcDropZone.addEventListener('dragleave', () => hcDropZone.classList.remove('dragover'));
+    hcDropZone.addEventListener('drop', (e) => { e.preventDefault(); hcDropZone.classList.remove('dragover'); handleHcFile(e.dataTransfer.files[0]); });
+  }
+
+  // Form submit
+  document.getElementById('heroCardForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const body = {
+      quote: document.getElementById('hcQuote').value || null,
+      tag_text: document.getElementById('hcTagText').value || null,
+      tag_style: document.getElementById('hcTagStyle').value || null,
+      alt_text: document.getElementById('hcAltText').value || null,
+      display_order: parseInt(document.getElementById('hcOrder').value) || 0,
+      image_url: document.getElementById('hcImageUrl').value || null,
+      is_visible: document.getElementById('hcVisible').checked,
+    };
+    const url = isEdit ? `/api/hero/cards/${card.id}` : '/api/hero/cards';
+    const res = await Auth.api(url, { method: isEdit?'PUT':'POST', body });
+    if (res.ok) { closeModal(); toast(isEdit?'Card updated':'Card created'); loadHero(); }
+    else { const err = await res.json(); toast(err.detail||'Error','error'); }
+  });
+}
+
+function removeHcPreview() {
+  document.getElementById('hcImageUrl').value = '';
+  const preview = document.getElementById('hcImgPreview');
+  preview.innerHTML = ''; preview.style.display = 'none';
+}
+
+async function editHeroCard(id) {
+  const res = await Auth.api(`/api/hero/cards/${id}`);
+  if (res.ok) showHeroCardForm(await res.json());
+}
+
+async function deleteHeroCard(id) {
+  const yes = await confirmDialog('Delete Hero Card', 'Are you sure you want to delete this hero card? This action cannot be undone.');
+  if (!yes) return;
+  const res = await Auth.api(`/api/hero/cards/${id}`, { method:'DELETE' });
+  if (res.ok) { toast('Card deleted'); loadHero(); }
+  else toast('Delete failed','error');
+}
+
+/* ── HERO STATS ─────────────────────────────────── */
+async function loadHeroStats() {
+  const container = document.getElementById('heroContent');
+  try {
+    const res = await Auth.api('/api/hero/stats');
+    const stats = await res.json();
+    let rows = '';
+    stats.forEach(s => {
+      const vis = s.is_visible ? 'published' : 'draft';
+      rows += `<tr>
+        <td><strong>${esc(s.stat_value)}</strong></td>
+        <td>${esc(s.stat_label)}</td>
+        <td><span class="status-badge status-badge--${vis}"><span class="status-dot"></span>${vis === 'published' ? 'Visible' : 'Hidden'}</span></td>
+        <td style="color:var(--text-muted)">${s.display_order}</td>
+        <td><div class="action-btns">
+          <button class="action-btn" onclick="editHeroStat(${s.id})" title="Edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
+        </div></td>
+      </tr>`;
+    });
+    container.innerHTML = `
+      <div class="header-actions" style="margin-bottom:1rem;"></div>
+      <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Value</th><th>Label</th><th>Status</th><th>Order</th><th>Actions</th></tr></thead>
+        <tbody>${rows || '<tr><td colspan="5" class="table-empty">No stats yet. Create your first stat!</td></tr>'}</tbody></table></div>`;
+  } catch(e) { container.innerHTML = '<p style="color:var(--danger)">Failed to load hero stats</p>'; }
+}
+
+function showHeroStatForm(stat = null) {
+  const isEdit = !!stat;
+  openModal(isEdit ? 'Edit Stat' : 'New Stat', `
+    <form class="modal-form" id="heroStatForm">
+      <div class="form-group"><label>Value</label><input type="text" id="hsValue" value="${esc(stat?.stat_value||'')}" required placeholder="e.g. 42, DMU alumni"></div>
+      <div class="form-group"><label>Label</label><input type="text" id="hsLabel" value="${esc(stat?.stat_label||'')}" required placeholder="e.g. Research papers"></div>
+      <div class="form-group"><label>Display Order</label><input type="number" id="hsOrder" value="${stat?.display_order ?? 0}" min="0"></div>
+      <div class="form-group"><label><input type="checkbox" id="hsVisible" ${stat?.is_visible!==false?'checked':''}> Visible on website</label></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary-dash">${isEdit?'Update':'Create'} Stat</button>
+      </div>
+    </form>`);
+  document.getElementById('heroStatForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const body = {
+      stat_value: document.getElementById('hsValue').value,
+      stat_label: document.getElementById('hsLabel').value,
+      display_order: parseInt(document.getElementById('hsOrder').value) || 0,
+      is_visible: document.getElementById('hsVisible').checked,
+    };
+    const url = isEdit ? `/api/hero/stats/${stat.id}` : '/api/hero/stats';
+    const res = await Auth.api(url, { method: isEdit?'PUT':'POST', body });
+    if (res.ok) { closeModal(); toast(isEdit?'Stat updated':'Stat created'); loadHero(); }
+    else { const err = await res.json(); toast(err.detail||'Error','error'); }
+  });
+}
+
+async function editHeroStat(id) {
+  const res = await Auth.api(`/api/hero/stats/${id}`);
+  if (res.ok) showHeroStatForm(await res.json());
+}
+
+async function deleteHeroStat(id) {
+  const yes = await confirmDialog('Delete Stat', 'Are you sure you want to delete this stat? This action cannot be undone.');
+  if (!yes) return;
+  const res = await Auth.api(`/api/hero/stats/${id}`, { method:'DELETE' });
+  if (res.ok) { toast('Stat deleted'); loadHero(); }
+  else toast('Delete failed','error');
+}
+
+function pwWrapHtml(id, placeholder, attrs) {
+  return `<div class="pw-wrap">
+    <input type="password" id="${id}" placeholder="${placeholder}" ${attrs||''}>
+    <button type="button" class="pw-toggle" data-target="${id}" aria-label="Toggle password">
+      <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <svg class="eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>
+    </button>
+  </div>`;
 }
 
 function esc(str) {

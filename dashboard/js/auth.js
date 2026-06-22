@@ -2,11 +2,7 @@
    Auth Module — JWT login/register for dashboard
    ══════════════════════════════════════════════════ */
 
-// API_BASE points to the FastAPI backend (Render in production, localhost in dev)
-const API_BASE = window.__API_BASE__ ||
-  (window.location.hostname === 'localhost'
-    ? 'http://localhost:8000'
-    : 'https://fivew-be.onrender.com');
+const API_BASE = window.__API_BASE__ || 'https://reminiscent-jaguar-550.convex.site';
 
 const Auth = {
   token: localStorage.getItem('5wof_token'),
@@ -35,6 +31,54 @@ const Auth = {
   },
 
   async api(path, opts = {}) {
+    // Intercept image uploads
+    if (path.includes('upload-image') && opts.body instanceof FormData) {
+      const file = opts.body.get('file');
+      if (!file) throw new Error("No file provided");
+      
+      // 1. Get upload URL
+      const urlRes = await fetch(`${API_BASE}/api/upload-url`, { method: "POST" });
+      const { uploadUrl } = await urlRes.json();
+      
+      // 2. Upload to Convex
+      const uploadResult = await fetch(uploadUrl, {
+        method: "POST",
+        headers: { "Content-Type": file.type },
+        body: file,
+      });
+      if (!uploadResult.ok) throw new Error("File upload failed");
+      const { storageId } = await uploadResult.json();
+      
+      // 3. Save the image URL in the DB
+      let table = path.includes('blog') ? 'blogPosts' : path.includes('events') ? 'events' : 'heroCards';
+      let field = 'image_url';
+      if (table === 'blogPosts') field = 'cover_image';
+      
+      const parts = path.split('/');
+      let recordId = parts[parts.length - 2];
+      if (['blog', 'events', 'hero', 'api'].includes(recordId)) {
+        recordId = null;
+      }
+      
+      if (!recordId || recordId === 'upload-image') {
+          // If no recordId, the original backend just returned a temp URL or didn't link it.
+          // For Convex we can just return the URL for the storageId without linking.
+          const res = await fetch(`${API_BASE}/api/save-image`, {
+             method: 'POST',
+             body: JSON.stringify({ storageId }),
+             headers: { 'Content-Type': 'application/json' }
+          });
+          return res;
+      }
+
+      const res = await fetch(`${API_BASE}/api/save-image`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ storageId, table, recordId, field }),
+      });
+      return res;
+    }
+
     const url = `${API_BASE}${path}`;
     const config = { headers: this.headers(), ...opts };
     if (config.body && typeof config.body === 'object' && !(config.body instanceof FormData)) {

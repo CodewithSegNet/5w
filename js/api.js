@@ -3,17 +3,68 @@
    Loads blog posts, events carousel, and contact form
    ══════════════════════════════════════════════════ */
 
-const API_URL =
-  window.location.hostname === 'localhost'
-    ? 'http://localhost:8000'
-    : 'https://fivew-be.onrender.com';
+const API_URL = 'https://reminiscent-jaguar-550.convex.site';
     
 document.addEventListener('DOMContentLoaded', () => {
+  loadHeroSection();
   loadFeaturedBlog();
   loadPublicEvents();
   setupContactForm();
   setupBlogDetail();
 });
+
+/* ── HERO SECTION ──────────────────────────────── */
+async function loadHeroSection() {
+  const container = document.getElementById('heroDynamicContainer');
+  if (!container) return;
+  try {
+    const res = await fetch(`${API_URL}/api/hero/public`);
+    if (!res.ok) return;
+    const data = await res.json();
+    
+    if ((!data.cards || data.cards.length === 0) && (!data.stats || data.stats.length === 0)) {
+      return; // Fallback to static HTML if empty
+    }
+
+    let html = '';
+    
+    // Sort and map cards
+    const sortedCards = (data.cards || []).sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+    sortedCards.forEach(c => {
+      let tagHtml = '';
+      if (c.title) {
+        // Just alternating between tag styles randomly based on index, or by default use 'hero-photo-tag'
+        // Let's use 'hero-photo-tag' for the first one, 'hero-photo-tag-two' for others as in the static version
+        tagHtml = `<div class="${c.display_order === 1 ? 'hero-photo-tag' : 'hero-photo-tag-two'}">${esc(c.title)}</div>`;
+      }
+      
+      html += `
+      <div class="hero-photo">
+        <img src="${resolveImageUrl(c.image_url)}" alt="${esc(c.title)}" loading="lazy">
+        <div class="hero-photo-overlay">
+          <p class="hero-photo-quote">${esc(c.quote)}</p>
+        </div>
+        ${tagHtml}
+      </div>`;
+    });
+
+    // Add stats strip
+    if (data.stats && data.stats.length > 0) {
+      const sortedStats = data.stats.sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+      html += '<div class="hero-stats-strip">';
+      sortedStats.forEach(s => {
+        html += `
+        <div class="stat-item">
+          <div class="stat-num">${esc(s.stat_value)}</div>
+          <div class="stat-label">${esc(s.stat_label)}</div>
+        </div>`;
+      });
+      html += '</div>';
+    }
+
+    container.innerHTML = html;
+  } catch (e) { /* silently fallback to static HTML */ }
+}
 
 /* ── BLOG (Homepage — 3 Latest) ────────────────── */
 async function loadFeaturedBlog() {

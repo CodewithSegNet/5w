@@ -1,0 +1,28 @@
+{
+  "name": "5wsoffashion",
+  "version": "1.0.0",
+  "description": "This is the Landing Page for 5ws of fashion.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodewithSegNet/5w.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/CodewithSegNet/5w/issues"
+  },
+  "homepage": "https://github.com/CodewithSegNet/5w#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "convex": "^1.41.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6"
+  }
+}
